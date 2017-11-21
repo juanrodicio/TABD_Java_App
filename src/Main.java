@@ -27,19 +27,23 @@ public class Main {
         map.put("WINEMAKER_TYPE", Class.forName("Winemaker"));
         map.put("WINE_GOES_WITH_FOOD_TYPE", Class.forName("Wine_Goes_With_Food"));
         conn.setTypeMap(map);
-
-        /*DatabaseMetaData dbmd = conn.getMetaData();
-        ResultSet rs = dbmd.getTypeInfo();
-
-        while(rs.next()) {
-            System.out.println(rs.getString("TYPE_NAME"));
-        }*/
         
-        WineDAO wdao = new WineDAO(conn);
-        ArrayList<Wine> wines = wdao.search_by_price(20.0, 100.0);
+        FoodDAO fdDAO = new FoodDAO(conn);
+        Wine_At_MerchantsDAO WaMDAO = new Wine_At_MerchantsDAO(conn);
+        MerchantDAO MerchDAO = new MerchantDAO(conn);
 
-        for(Wine wine : wines) {
-            System.out.println(wine.wine_name);
-        }
+        Date fecha_inicial = new Date(2017,11,22);
+        Date fecha_final = new Date(2017,11,27);
+
+        MerchDAO.add_merchant("nuevo merchant");
+        MerchDAO.delete_merchant(7);
+
+        /*ArrayList<Wine_At_Merchants> ofertas = WaMDAO.search_offers(fecha_inicial, fecha_final);
+
+        for(Wine_At_Merchants oferta : ofertas) {
+            System.out.println("Fecha_ini : "+ oferta.offer_start_date +"\n"+
+                                "Fecha_fin : "+ oferta.offer_finish_date+"\n"+
+                                "Precio: " + oferta.price_on_offer);
+        }*/
     }
 }
