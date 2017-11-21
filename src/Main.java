@@ -1,5 +1,8 @@
+import oracle.jdbc.OracleTypes;
+import oracle.jdbc.oracore.OracleType;
 import oracle.sql.STRUCT;
 
+import javax.naming.spi.DirStateFactory;
 import java.sql.*;
 import java.util.Dictionary;
 import java.util.Map;
@@ -25,11 +28,16 @@ public class Main {
         conn.setTypeMap(map);
 
         // Esto es una prueba, lo de arriba no deberíais tocarlo.
-        Statement call = conn.createStatement();
-        ResultSet rs = call.executeQuery("SELECT VALUE(rg) FROM Wine_Table rg WHERE wine_id=29");
-        rs.next();
-        Wine rg = (Wine) rs.getObject(1);
+        CallableStatement call = conn.prepareCall("{? = call search_package.search_wines_by_winemaker(?)}");
+        call.registerOutParameter(1, OracleTypes.CURSOR);
+        call.setString(2,"Tuscany Winemaker");
+        call.execute();
+        ResultSet rset = (ResultSet) call.getObject(1);
 
-        System.out.println(rg.rated_by.getObject());
+        // Dump the cursor
+        while (rset.next ()){
+            Wine rg = (Wine) rset.getObject(1);
+            System.out.println(rg.wine_name);
+        }
     }
 }

@@ -9,8 +9,8 @@ public class OracleConnection {
     public static Connection dbConnector() {
         if (conn == null) {
             String databaseURL = "jdbc:oracle:thin:@//localhost:1521/XE";
-            String userid = "p";
-            String userpwd = "p";
+            String userid = "juanrodicio";
+            String userpwd = "fived0llars";
             String jdbcDriver = "oracle.jdbc.driver.OracleDriver";
             try {
                 Class.forName(jdbcDriver);
