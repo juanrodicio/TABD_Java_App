@@ -29,6 +29,8 @@ public class WineDAO {
             }
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -54,6 +56,8 @@ public class WineDAO {
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return array_wines;
@@ -76,6 +80,8 @@ public class WineDAO {
             }
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -99,6 +105,8 @@ public class WineDAO {
             }
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -122,6 +130,8 @@ public class WineDAO {
             }
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -146,6 +156,8 @@ public class WineDAO {
 
         } catch (SQLException e) {
             System.err.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return array_wines;
@@ -153,6 +165,29 @@ public class WineDAO {
 
 
     // Insert method
+    public void insert_wine(int winemaker_id, String wine_name, String wine_description, String good_years,
+                            Double price_bottle, int rating_id, String colour, Array certificates) {
+        CallableStatement call = null;
+
+        try {
+            call = conn.prepareCall("{call insert_package.insert_wine(?, ?, ?, ?, ?, ?, ?, ?)}");
+
+            call.setInt(1,winemaker_id);
+            call.setString(2, wine_name);
+            call.setString(3, wine_description);
+            call.setString(4, good_years);
+            call.setDouble(5, price_bottle);
+            call.setInt(6, rating_id);
+            call.setString(7, colour);
+            call.setArray(8, certificates);
+            call.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 
     // Update method
@@ -169,6 +204,8 @@ public class WineDAO {
             call.executeUpdate();
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -183,6 +220,8 @@ public class WineDAO {
             call.executeUpdate();
 
         } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

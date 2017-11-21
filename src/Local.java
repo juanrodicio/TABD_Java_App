@@ -9,6 +9,11 @@ public class Local extends Certificate {
 
     }
 
+    public Local(int certificate_id, String certificate_name, String partnership_name) {
+        super(certificate_id, certificate_name);
+        this.partnership_name = partnership_name;
+    }
+
     @Override
     public void readSQL(SQLInput sqlInput, String s) throws SQLException {
         super.readSQL(sqlInput, s);
