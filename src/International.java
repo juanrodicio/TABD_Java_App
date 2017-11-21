@@ -9,6 +9,11 @@ public class International extends Certificate {
 
     }
 
+    public International(int certificate_id, String certificate_name, String congress_name) {
+        super(certificate_id, certificate_name);
+        this.congress_name = congress_name;
+    }
+
     @Override
     public void readSQL(SQLInput sqlInput, String s) throws SQLException {
         super.readSQL(sqlInput, s);

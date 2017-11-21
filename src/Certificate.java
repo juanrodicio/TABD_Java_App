@@ -12,6 +12,11 @@ public class Certificate implements SQLData {
     public Certificate() {
     }
 
+    public Certificate(int certificate_id, String certificate_name) {
+        this.certificate_id = certificate_id;
+        this.certificate_name = certificate_name;
+    }
+
     @Override
     public String getSQLTypeName() throws SQLException {
         return sql_type;

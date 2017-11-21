@@ -9,6 +9,11 @@ public class National extends Certificate {
 
     }
 
+    public National(int certificate_id, String certificate_name, String organisation_name) {
+        super(certificate_id, certificate_name);
+        this.organisation_name = organisation_name;
+    }
+
     @Override
     public void readSQL(SQLInput sqlInput, String s) throws SQLException {
         super.readSQL(sqlInput, s);
