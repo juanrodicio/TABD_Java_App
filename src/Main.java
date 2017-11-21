@@ -4,6 +4,7 @@ import oracle.sql.STRUCT;
 
 import javax.naming.spi.DirStateFactory;
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.Map;
 
@@ -27,17 +28,18 @@ public class Main {
         map.put("WINE_GOES_WITH_FOOD_TYPE", Class.forName("Wine_Goes_With_Food"));
         conn.setTypeMap(map);
 
-        // Esto es una prueba, lo de arriba no deberíais tocarlo.
-        CallableStatement call = conn.prepareCall("{? = call search_package.search_wines_by_winemaker(?)}");
-        call.registerOutParameter(1, OracleTypes.CURSOR);
-        call.setString(2,"Tuscany Winemaker");
-        call.execute();
-        ResultSet rset = (ResultSet) call.getObject(1);
+        /*DatabaseMetaData dbmd = conn.getMetaData();
+        ResultSet rs = dbmd.getTypeInfo();
 
-        // Dump the cursor
-        while (rset.next ()){
-            Wine rg = (Wine) rset.getObject(1);
-            System.out.println(rg.wine_name);
+        while(rs.next()) {
+            System.out.println(rs.getString("TYPE_NAME"));
+        }*/
+        
+        WineDAO wdao = new WineDAO(conn);
+        ArrayList<Wine> wines = wdao.search_by_price(20.0, 100.0);
+
+        for(Wine wine : wines) {
+            System.out.println(wine.wine_name);
         }
     }
 }
